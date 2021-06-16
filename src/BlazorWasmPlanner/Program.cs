@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,9 @@ namespace BlazorWasmPlanner
             {
                 client.BaseAddress = new Uri("https://plannerapp-api.azurewebsites.net");
             }).AddHttpMessageHandler<AuthorizationMessageHandler>();
+            builder.Services.AddTransient<AuthorizationMessageHandler>();
+
+            builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("PlannerApp.Api"));
 
             builder.Services.AddMudServices();
             builder.Services.AddBlazoredLocalStorage();

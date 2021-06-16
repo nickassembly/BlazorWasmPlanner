@@ -20,7 +20,7 @@ namespace BlazorWasmPlanner
                 var token = await _storage.GetItemAsStringAsync("access_token");
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             }
-
+            System.Console.WriteLine("Authorization Message Handler called");
             return await base.SendAsync(request, cancellationToken);
         }
     }
