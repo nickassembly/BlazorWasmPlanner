@@ -8,7 +8,6 @@ using MudBlazor.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,28 +30,10 @@ namespace BlazorWasmPlanner
 
             builder.Services.AddMudServices();
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
 
             await builder.Build().RunAsync();
-        }
-    }
-
-    public class JwtAuthenticationStateProvider : AuthenticationStateProvider
-    {
-        private readonly ILocalStorageService _storage;
-
-        public JwtAuthenticationStateProvider(ILocalStorageService storage)
-        {
-            _storage = storage;
-        }
-
-        public async override Task<AuthenticationState> GetAuthenticationStateAsync()
-        {
-            if (await _storage.ContainKeyAsync("access_token"))
-            {
-                // the user is logged in
-            }
-
-            return new AuthenticationState(new ClaimsPrincipal()); // Empty claims principal means no identity and the user is not logged in
         }
     }
 
