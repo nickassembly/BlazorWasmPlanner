@@ -2,12 +2,10 @@
 using BlazorWasmPlanner.Shared.Models;
 using BlazorWasmPlanner.Shared.Responses;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorWasmPlanner.Components
@@ -21,7 +19,7 @@ namespace BlazorWasmPlanner.Components
         public NavigationManager Navigation { get; set; }
 
         [Inject]
-        public JwtAuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         [Inject]
         public ILocalStorageService Storage { get; set; }
@@ -45,6 +43,8 @@ namespace BlazorWasmPlanner.Components
                 await Storage.SetItemAsync<DateTime>("expiry_date", result.Value.ExpiryDate);
 
                 await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+                Navigation.NavigateTo("/");
             }
             else
             {
