@@ -1,4 +1,6 @@
 using Blazored.LocalStorage;
+using BlazorWasmPlanner.Client.Services;
+using BlazorWasmPlanner.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,7 @@ namespace BlazorWasmPlanner
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
+            builder.Services.AddHttpClientServices();
 
             await builder.Build().RunAsync();
         }
