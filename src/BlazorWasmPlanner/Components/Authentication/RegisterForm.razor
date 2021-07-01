@@ -1,13 +1,12 @@
-﻿
+﻿@page "/authentication/register" 
 
 <EditForm Model="_model" OnValidSubmit="RegisterUserAsync">
-    <DataAnnotationsValidator />
+    <FluentValidationValidator />
 
     <MudCard>
         <MudCardHeader>
             <CardHeaderContent>
                 <MudText Typo="Typo.h6">Welcome to PlannerApp v2.0</MudText>
-                <MudText Typo="Typo.body2">Create a new account</MudText>
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
@@ -26,8 +25,8 @@
         </MudCardContent>
 
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Class="ml-1" Disabled="_isBusy">Create Account</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="RedirectToLogin" Disabled="_isBusy">Login</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Disabled="_isBusy">Create Account</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-1" OnClick="RedirectToLogin" Disabled="_isBusy">Login</MudButton>
         </MudCardActions>
 
     </MudCard>
