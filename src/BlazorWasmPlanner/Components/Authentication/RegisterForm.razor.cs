@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
-namespace BlazorWasmPlanner.Components.Authentication
+namespace BlazorWasmPlanner.Components
 {
     public partial class RegisterForm : ComponentBase
     {

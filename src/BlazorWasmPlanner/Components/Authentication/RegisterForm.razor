@@ -1,4 +1,5 @@
-﻿@page "/authentication/register" 
+﻿
+@namespace BlazorWasmPlanner.Components
 
 <EditForm Model="_model" OnValidSubmit="RegisterUserAsync">
     <FluentValidationValidator />
@@ -25,7 +26,7 @@
         </MudCardContent>
 
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Disabled="_isBusy">Create Account</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" Disabled="_isBusy">Create Account</MudButton>
             <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-1" OnClick="RedirectToLogin" Disabled="_isBusy">Login</MudButton>
         </MudCardActions>
 
