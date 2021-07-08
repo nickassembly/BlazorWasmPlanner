@@ -54,5 +54,16 @@ namespace BlazorWasmPlanner.Components
             return null;
         }
 
+        private bool _isCardsViewEnabled = true;
+
+        private void SetCardsView()
+        {
+            _isCardsViewEnabled = true;
+        }
+
+        private void SetTableView()
+        {
+            _isCardsViewEnabled = false;
+        }
     }
 }
