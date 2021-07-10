@@ -40,6 +40,6 @@ namespace BlazorWasmPlanner.Shared.Validators
                 .Equal(p => p.Password)
                 .WithMessage("Confirm password doesn't match the password");
         }
-
     }
+
 }
