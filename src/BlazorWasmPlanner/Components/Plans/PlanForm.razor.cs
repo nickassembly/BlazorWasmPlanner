@@ -1,4 +1,5 @@
-﻿using BlazorWasmPlanner.Client.Services.Interfaces;
+﻿using BlazorWasmPlanner.Client.Services.Exceptions;
+using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -16,6 +17,9 @@ namespace BlazorWasmPlanner.Components
         [Inject]
         public IPlansService PlansService { get; set; }
 
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
         private PlanDetail _model = new PlanDetail();
         private bool _isBusy = false;
         private Stream _stream = null;
@@ -24,7 +28,31 @@ namespace BlazorWasmPlanner.Components
 
         private async Task SubmitFormAsync()
         {
-            _errorMessage = "done";
+            _isBusy = true;
+
+            try
+            {
+                FormFile formFile = null;
+
+                if (_stream != null)
+                    formFile = new FormFile(_stream, _fileName);
+
+                var result = await PlansService.CreateAsync(_model, formFile);
+                // Success
+                Navigation.NavigateTo("/plans");
+            }
+            catch (ApiException ex)
+            {
+                _errorMessage = ex.ApiErrorResponse.Message;
+            }
+            catch (Exception ex)
+            {
+
+                // TODO: Log the error
+                _errorMessage = ex.Message;
+            }
+
+            _isBusy = false;
         }
 
         private async Task OnChooseFileAsync(InputFileChangeEventArgs e)
@@ -33,7 +61,7 @@ namespace BlazorWasmPlanner.Components
             var file = e.File;
             if (file != null)
             {
-               if (file.Size > 2097152)
+                if (file.Size > 2097152)
                 {
                     _errorMessage = "The file must be less than 2MB";
                     return;
