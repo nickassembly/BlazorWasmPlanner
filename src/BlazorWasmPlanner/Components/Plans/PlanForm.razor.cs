@@ -17,6 +17,11 @@ namespace BlazorWasmPlanner.Components
         [Inject]
         public IPlansService PlansService { get; set; }
 
+        [Parameter]
+        public string Id { get; set; }
+
+        private bool _isEditMode => Id != null;
+
         [Inject]
         public NavigationManager Navigation { get; set; }
 
@@ -48,6 +53,28 @@ namespace BlazorWasmPlanner.Components
             catch (Exception ex)
             {
 
+                // TODO: Log the error
+                _errorMessage = ex.Message;
+            }
+
+            _isBusy = false;
+        }
+
+        private async Task FetchPlanByIdAsync()
+        {
+            _isBusy = true;
+
+            try
+            {
+                var result = await PlansService.GetByIdAsync(Id);
+                _model = result.Value;
+            }
+            catch (ApiException ex)
+            {
+              _errorMessage = ex.ApiErrorResponse.Message;
+            }
+            catch (Exception ex)
+            {
                 // TODO: Log the error
                 _errorMessage = ex.Message;
             }
