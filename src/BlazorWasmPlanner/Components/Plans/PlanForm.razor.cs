@@ -31,6 +31,12 @@ namespace BlazorWasmPlanner.Components
         private string _fileName = string.Empty;
         private string _errorMessage = string.Empty;
 
+        protected override async Task OnInitializedAsync()
+        {
+            if (_isEditMode)
+                await FetchPlanByIdAsync();
+        }
+
         private async Task SubmitFormAsync()
         {
             _isBusy = true;
@@ -42,7 +48,11 @@ namespace BlazorWasmPlanner.Components
                 if (_stream != null)
                     formFile = new FormFile(_stream, _fileName);
 
-                var result = await PlansService.CreateAsync(_model, formFile);
+                if (_isEditMode)
+                    await PlansService.EditAsync(_model, formFile);
+                else
+                    await PlansService.CreateAsync(_model, formFile);
+
                 // Success
                 Navigation.NavigateTo("/plans");
             }

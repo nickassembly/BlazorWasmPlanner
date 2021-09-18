@@ -12,6 +12,9 @@ namespace BlazorWasmPlanner.Components
         private int _pageSize = 10;
         private string _query = string.Empty;
 
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
         [Parameter]
         public Func<string, int, int, Task<PagedList<PlanSummary>>> FetchPlans { get; set; }
 
@@ -28,6 +31,11 @@ namespace BlazorWasmPlanner.Components
             _isBusy = true;
             _result = await FetchPlans?.Invoke(_query, _pageNumber, _pageSize);
             _isBusy = false;
+        }
+
+        private void EditPlan(PlanSummary plan)
+        {
+            Navigation.NavigateTo($"/plans/form/{plan.Id}");
         }
     }
 }
