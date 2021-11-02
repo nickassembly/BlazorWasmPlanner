@@ -15,6 +15,9 @@ namespace BlazorWasmPlanner.Components
         [Inject]
         public IPlansService PlansService { get; set; }
 
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
         private bool _isBusy;
         private string _errorMessage = string.Empty;
         private int _pageNumber = 1;
@@ -64,6 +67,11 @@ namespace BlazorWasmPlanner.Components
         private void SetTableView()
         {
             _isCardsViewEnabled = false;
+        }
+
+        private void EditPlan(PlanSummary plan)
+        {
+            Navigation.NavigateTo($"/plans/form/{plan.Id}");
         }
     }
 }
