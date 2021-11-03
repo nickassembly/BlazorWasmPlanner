@@ -15,5 +15,6 @@ namespace BlazorWasmPlanner.Client.Services.Interfaces
         Task<ApiResponse<PlanDetail>> GetByIdAsync(string id);
         Task<ApiResponse<PlanDetail>> CreateAsync(PlanDetail model, FormFile coverFile);
         Task<ApiResponse<PlanDetail>> EditAsync(PlanDetail model, FormFile coverFile);
+        Task DeleteAsync(string id);
     }
 }
