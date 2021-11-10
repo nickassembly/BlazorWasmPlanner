@@ -1,4 +1,5 @@
-﻿using BlazorWasmPlanner.Shared.Models;
+﻿using AKSoftware.Blazor.Utilities;
+using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
@@ -25,6 +26,15 @@ namespace BlazorWasmPlanner.Components
         public EventCallback<PlanSummary> OnDeleteClicked { get; set; }
 
         private PagedList<PlanSummary> _result = new();
+
+        protected override void OnInitialized()
+        {
+            MessagingCenter.Subscribe<PlansList, PlanSummary>(this, "plan_deleted", async (sender, args) =>
+            {
+                await GetPlansAsync(_pageNumber);
+                StateHasChanged();
+            });
+        }
 
         protected async override Task OnInitializedAsync()
         {

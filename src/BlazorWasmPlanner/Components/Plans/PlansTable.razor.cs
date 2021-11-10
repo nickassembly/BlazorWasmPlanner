@@ -1,4 +1,5 @@
-﻿using BlazorWasmPlanner.Client.Services.Interfaces;
+﻿using AKSoftware.Blazor.Utilities;
+using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -22,6 +23,15 @@ namespace BlazorWasmPlanner.Components
 
         private string _query = string.Empty;
         private MudTable<PlanSummary> _table;
+
+        protected override void OnInitialized()
+        {
+            MessagingCenter.Subscribe<PlansList, PlanSummary>(this, "plan_deleted", async (sender, args) => 
+            {
+                await _table.ReloadServerData();
+                StateHasChanged();
+            });
+        }
 
         private async Task<TableData<PlanSummary>> ServerReloadAsync(TableState state)
         {

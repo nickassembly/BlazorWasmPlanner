@@ -1,4 +1,5 @@
-﻿using BlazorWasmPlanner.Client.Services.Exceptions;
+﻿using AKSoftware.Blazor.Utilities;
+using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
@@ -94,7 +95,22 @@ namespace BlazorWasmPlanner.Components
             if (!confirmationResult.Cancelled)
             {
                 // Confirmed to delete
-                await PlansService.DeleteAsync(plan.Id);
+                try
+                {
+                    await PlansService.DeleteAsync(plan.Id);
+
+                    // Send a message about the deleted plan
+                    MessagingCenter.Send(this, "plan_deleted", plan);
+                }
+                catch (ApiException ex)
+                {
+                    // TODO: Log this error
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Log this error
+                }
+                
             }
         }
     }
