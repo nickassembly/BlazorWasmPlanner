@@ -21,6 +21,9 @@ namespace BlazorWasmPlanner.Components
         [Parameter]
         public EventCallback<PlanSummary> OnEditClicked { get; set; }
 
+        [Parameter]
+        public EventCallback<PlanSummary> OnDeleteClicked { get; set; }
+
         private PagedList<PlanSummary> _result = new();
 
         protected async override Task OnInitializedAsync()

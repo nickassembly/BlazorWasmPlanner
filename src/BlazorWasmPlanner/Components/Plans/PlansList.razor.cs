@@ -2,6 +2,8 @@
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using PlannerApp.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,9 @@ namespace BlazorWasmPlanner.Components
 
         [Inject]
         public NavigationManager Navigation { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
 
         private bool _isBusy;
         private string _errorMessage = string.Empty;
@@ -72,6 +77,25 @@ namespace BlazorWasmPlanner.Components
         private void EditPlan(PlanSummary plan)
         {
             Navigation.NavigateTo($"/plans/form/{plan.Id}");
+        }
+
+        private async Task DeletePlanAsync(PlanSummary plan)
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("ContentText", $"Do you really want to delete the plan '{plan.Title}' ? This process cannot be undone.");
+            parameters.Add("ButtonText", "Delete");
+            parameters.Add("Color", Color.Error);
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = DialogService.Show<ConfirmationDialog>("Delete", parameters, options);
+            var confirmationResult = await dialog.Result;
+
+            if (!confirmationResult.Cancelled)
+            {
+                // Confirmed to delete
+                await PlansService.DeleteAsync(plan.Id);
+            }
         }
     }
 }
