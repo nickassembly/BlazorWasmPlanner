@@ -6,5 +6,7 @@ namespace BlazorWasmPlanner.Shared.Models
     {
         public IFormFile CoverFile { get; set; }
         // List of the todos
+        public PagedList<ToDoItemDetail> ToDoItems { get; set; }
     }
+
 }
