@@ -20,6 +20,9 @@ namespace BlazorWasmPlanner.Components
         public Func<string, int, int, Task<PagedList<PlanSummary>>> FetchPlans { get; set; }
 
         [Parameter]
+        public EventCallback<PlanSummary> OnViewClicked { get; set; }
+
+        [Parameter]
         public EventCallback<PlanSummary> OnEditClicked { get; set; }
 
         [Parameter]

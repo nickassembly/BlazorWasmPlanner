@@ -31,6 +31,19 @@ namespace BlazorWasmPlanner.Components
             MudDialog.Cancel();    
         }
 
+        protected override void OnParametersSet()
+        {
+            if (PlanId == null)
+                throw new ArgumentNullException(nameof(PlanId));
+
+            base.OnParametersSet();
+        }
+
+        protected async override Task OnInitializedAsync()
+        {
+            await FetchPlanAsync();
+        }
+
         private async Task FetchPlanAsync()
         {
             _isBusy = true;
@@ -39,6 +52,7 @@ namespace BlazorWasmPlanner.Components
             {
                 var result = await PlansService.GetByIdAsync(PlanId);
                 _plan = result.Value;
+                StateHasChanged();
             }
             catch (ApiException ex)
             {
