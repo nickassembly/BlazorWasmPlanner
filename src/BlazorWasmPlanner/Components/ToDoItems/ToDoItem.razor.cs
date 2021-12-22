@@ -15,6 +15,8 @@ namespace BlazorWasmPlanner.Components
 
         private bool _isChecked = true;
 
+        private bool _isEditMode = false;
 
+        private string _description = "Welcome to Blazor & .Net";
     }
 }

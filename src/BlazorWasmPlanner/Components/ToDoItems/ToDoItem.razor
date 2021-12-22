@@ -1,11 +1,29 @@
 ﻿@namespace BlazorWasmPlanner.Components
 
-<MudPaper Elevation="1" Class="mt-1">
-    <div class="p-1 d-flex flex-row align-center">
+<MudPaper Elevation="1" Class="mt-2 px-3">
+    <div class="d-flex flex-row align-center">
         <MudCheckBox @bind-Checked="@_isChecked" Color="Color.Primary" Class="flex-grow-0 flex-shrink-0 mr-2"></MudCheckBox>
 
-        <MudText Typo="Typo.subtitle1" Class="flex-grow-1 flex-shrink-0">Studying Blazor with .Net 6</MudText>
+        @if (_isEditMode)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudTextField @bind-Value="_description" Label="Outlined" Variant="Variant.Outlined" Margin="Margin.Dense" Class="flex-grow-1 flex-shrink-0 mr-2">
+                </MudTextField>
+            </MudItem>
 
-        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Class="flex-grow-1 flex-shrink-0"></MudIconButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Primary" Class="flex-grow-1 flex-shrink-0 mr-2"></MudIconButton>
+            
+            <MudIconButton Icon="@Icons.Material.Filled.Save" Color="Color.Success" Class="flex-grow-1 flex-shrink-0 mr-2"
+                OnClick="() => _isEditMode = false"></MudIconButton>
+        }
+        else
+        {
+            <MudText Typo="Typo.body1" Class="flex-grow-1 flex-shrink-0 mr-2"
+                 Style="cursor:pointer"
+                 @onclick="() => _isEditMode = true">Studying Blazor with .Net 6</MudText>
+
+        }
+
+        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Class="flex-grow-1 flex-shrink-0 mr-2"></MudIconButton>
     </div>
 </MudPaper>

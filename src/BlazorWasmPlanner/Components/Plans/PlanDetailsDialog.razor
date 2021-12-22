@@ -15,7 +15,7 @@
     </TitleContent>
     <DialogContent>
         <MudGrid>
-            <MudItem sm="12" md="6">
+            <MudItem sm="12" md="5">
                 @if (_isBusy)
                 {
                     <MudSkeleton Animation="Animation.Wave" SkeletonType="SkeletonType.Rectangle" Height="40px" Style="min-width:250px" />
@@ -29,7 +29,7 @@
                     <MudText Typo="Typo.body1">@_plan?.Description</MudText>
                 }
             </MudItem>
-            <MudItem sm="12" md="6">
+            <MudItem sm="12" md="7">
                 @if (_isBusy)
                 {
                     <MudSkeleton Animation="Animation.Wave" SkeletonType="SkeletonType.Text" Height="40px" Style="min-width:250px" />
