@@ -1,11 +1,11 @@
 ﻿@namespace BlazorWasmPlanner.Components
 
-<div class="m-1 p-1 d-flex flex-row align-center">
-    <div style="width:50px;height:50px;background-color:yellow" class="flex-shrink">
+<MudPaper Elevation="1" Class="mt-1">
+    <div class="p-1 d-flex flex-row align-center">
+        <MudCheckBox @bind-Checked="@_isChecked" Color="Color.Primary" Class="flex-grow-0 flex-shrink-0 mr-2"></MudCheckBox>
 
+        <MudText Typo="Typo.subtitle1" Class="flex-grow-1 flex-shrink-0">Studying Blazor with .Net 6</MudText>
+
+        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Class="flex-grow-1 flex-shrink-0"></MudIconButton>
     </div>
-
-     <div style="width:50px;height:50px;background-color:yellow" class="flex-shrink">
-
-    </div>
-</div>
+</MudPaper>
