@@ -17,6 +17,21 @@ namespace BlazorWasmPlanner.Components
 
         private bool _isEditMode = false;
 
-        private string _description = "Welcome to Blazor & .Net";
+        private string _description = string.Empty;
+
+        private void ToggleEditMode(bool isCancel)
+        {
+            if (_isEditMode)
+            {
+                _isEditMode = false;
+                _description = isCancel ? Item.Description : _description;
+            }
+            else
+            {
+                _isEditMode = true;
+                _description = Item.Description;
+            }
+        }
+
     }
 }

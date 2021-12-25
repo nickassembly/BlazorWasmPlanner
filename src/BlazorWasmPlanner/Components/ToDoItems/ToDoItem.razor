@@ -11,16 +11,19 @@
                 </MudTextField>
             </MudItem>
 
-            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Primary" Class="flex-grow-1 flex-shrink-0 mr-2"></MudIconButton>
-            
+            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Primary" Class="flex-grow-1 flex-shrink-0 mr-1"
+              OnClick="() => ToggleEditMode(true)" />
+
             <MudIconButton Icon="@Icons.Material.Filled.Save" Color="Color.Success" Class="flex-grow-1 flex-shrink-0 mr-2"
-                OnClick="() => _isEditMode = false"></MudIconButton>
+               />
         }
         else
         {
             <MudText Typo="Typo.body1" Class="flex-grow-1 flex-shrink-0 mr-2"
                  Style="cursor:pointer"
-                 @onclick="() => _isEditMode = true">Studying Blazor with .Net 6</MudText>
+                 @onclick="() => ToggleEditMode(false)">
+                @Item.Description
+             </MudText>
 
         }
 

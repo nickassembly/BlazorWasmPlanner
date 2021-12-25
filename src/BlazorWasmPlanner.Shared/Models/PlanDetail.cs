@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace BlazorWasmPlanner.Shared.Models
 {
@@ -6,7 +7,7 @@ namespace BlazorWasmPlanner.Shared.Models
     {
         public IFormFile CoverFile { get; set; }
         // List of the todos
-        public PagedList<ToDoItemDetail> ToDoItems { get; set; }
+        public List<ToDoItemDetail> ToDoItems { get; set; }
     }
 
 }
