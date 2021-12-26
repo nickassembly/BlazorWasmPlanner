@@ -72,5 +72,17 @@ namespace BlazorWasmPlanner.Components
             _items.Add(todoItem);
         }
 
+        private void OnToDoItemDeletedCallback(ToDoItemDetail todoItem)
+        {
+            _items.Remove(todoItem);
+        }
+
+        private void OnToDoItemEditedCallback(ToDoItemDetail todoItem)
+        {
+            var editedItem = _items.SingleOrDefault(i => i.Id == todoItem.Id);
+            editedItem.Description = todoItem.Description;
+            editedItem.IsDone = todoItem.IsDone;
+        }
+
     }
 }
