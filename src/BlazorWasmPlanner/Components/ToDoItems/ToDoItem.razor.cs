@@ -33,6 +33,12 @@ namespace BlazorWasmPlanner.Components
         private string _description = string.Empty;
         private string _errorMessage = string.Empty;
 
+        private string _descriptionStyle => $"cursor:pointer;{(!_isChecked ? "" : "text-decoration: line-through")}";
+        protected override void OnInitialized()
+        {
+            _isChecked = Item.IsDone;
+        }
+
         private void ToggleEditMode(bool isCancel)
         {
             if (_isEditMode)
@@ -88,6 +94,33 @@ namespace BlazorWasmPlanner.Components
 
                 // Notify the parent about the newly added item
                 await OnItemEdited.InvokeAsync(result.Value);
+            }
+            catch (ApiException ex)
+            {
+                _errorMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Handle errors globally
+            }
+
+            _isBusy = false;
+        }
+
+        private async Task ToggleItemAsync(bool value)
+        {
+            _errorMessage = string.Empty;
+
+            try
+            {
+                _isBusy = true;
+                // Call the Api to add the item
+                await ToDoItemService.ToggleAsync(Item.Id);
+                Item.IsDone = !Item.IsDone;
+                _isChecked = Item.IsDone;
+
+                // Notify the parent about the newly added item
+                await OnItemEdited.InvokeAsync(Item);
             }
             catch (ApiException ex)
             {
