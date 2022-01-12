@@ -15,15 +15,7 @@
     </MudMainContent>
 </MudLayout>
 
-<MudThemeProvider />
+<MudThemeProvider Theme="@_currentTheme"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-@code {
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}
