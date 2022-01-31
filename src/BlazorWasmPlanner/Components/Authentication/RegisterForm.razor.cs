@@ -1,5 +1,6 @@
 ﻿using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
+using BlazorWasmPlanner.Shared;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -14,6 +15,9 @@ namespace BlazorWasmPlanner.Components
 
         [Inject]
         public NavigationManager Navigation { get; set; }
+
+        [CascadingParameter]
+        public Error Error { get; set; }
 
         private RegisterRequest _model = new();
         private bool _isBusy = false;
@@ -37,8 +41,7 @@ namespace BlazorWasmPlanner.Components
             }
             catch(Exception ex)
             {
-                // Handle General errors
-                _errorMessage = ex.Message;
+                Error.HandleError(ex);
             }
 
             _isBusy = false;

@@ -1,5 +1,6 @@
 ﻿using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
+using BlazorWasmPlanner.Shared;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -19,6 +20,10 @@ namespace BlazorWasmPlanner.Components
 
         [Parameter]
         public string Id { get; set; }
+
+        // TODO: Every Component with global exception, Add Cascading Parameter and call Error.HandleError(ex)
+        [CascadingParameter]
+        public Error Error { get; set; }
 
         private bool _isEditMode => Id != null;
 
@@ -62,9 +67,7 @@ namespace BlazorWasmPlanner.Components
             }
             catch (Exception ex)
             {
-
-                // TODO: Log the error
-                _errorMessage = ex.Message;
+                Error.HandleError(ex);
             }
 
             _isBusy = false;
@@ -85,8 +88,7 @@ namespace BlazorWasmPlanner.Components
             }
             catch (Exception ex)
             {
-                // TODO: Log the error
-                _errorMessage = ex.Message;
+                Error.HandleError(ex);
             }
 
             _isBusy = false;
