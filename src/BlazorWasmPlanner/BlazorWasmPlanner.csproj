@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AKSoftware.Blazor.Utilities" Version="1.0.0" />
     <PackageReference Include="AKSoftware.Localization.MultiLanguages" Version="5.2.0" />
     <PackageReference Include="AKSoftware.Localization.MultiLanguages.Blazor" Version="1.0.0" />

@@ -1,4 +1,6 @@
-﻿using BlazorWasmPlanner.Client.Services.Exceptions;
+﻿using AKSoftware.Localization.MultiLanguages;
+using AKSoftware.Localization.MultiLanguages.Blazor;
+using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared;
 using BlazorWasmPlanner.Shared.Models;
@@ -16,12 +18,20 @@ namespace BlazorWasmPlanner.Components
         [Inject]
         public NavigationManager Navigation { get; set; }
 
+        [Inject]
+        public ILanguageContainerService Language { get; set; }
+
         [CascadingParameter]
         public Error Error { get; set; }
 
         private RegisterRequest _model = new();
         private bool _isBusy = false;
         private string _errorMessage = string.Empty;
+
+        protected override void OnInitialized()
+        {
+            Language.InitLocalizedComponent(this);
+        }
 
         private async Task RegisterUserAsync()
         {
