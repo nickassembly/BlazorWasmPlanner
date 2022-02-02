@@ -1,4 +1,6 @@
-﻿using BlazorWasmPlanner.Client.Services.Exceptions;
+﻿using AKSoftware.Localization.MultiLanguages;
+using AKSoftware.Localization.MultiLanguages.Blazor;
+using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
@@ -18,6 +20,9 @@ namespace BlazorWasmPlanner.Components
 
         [Inject]
         public IPlansService PlansService { get; set; }
+
+        [Inject]
+        public ILanguageContainerService Language { get; set; }
 
         [Parameter]
         public string PlanId { get; set; }
@@ -42,6 +47,7 @@ namespace BlazorWasmPlanner.Components
 
         protected async override Task OnInitializedAsync()
         {
+            Language.InitLocalizedComponent(this);
             await FetchPlanAsync();
         }
 

@@ -1,4 +1,6 @@
 ﻿using AKSoftware.Blazor.Utilities;
+using AKSoftware.Localization.MultiLanguages;
+using AKSoftware.Localization.MultiLanguages.Blazor;
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared.Models;
 using Microsoft.AspNetCore.Components;
@@ -21,11 +23,16 @@ namespace BlazorWasmPlanner.Components
         [Parameter]
         public EventCallback<PlanSummary> OnEditClicked { get; set; }
 
+        [Inject]
+        public ILanguageContainerService Language { get; set; }
+
         private string _query = string.Empty;
         private MudTable<PlanSummary> _table;
 
         protected override void OnInitialized()
         {
+            Language.InitLocalizedComponent(this);
+
             MessagingCenter.Subscribe<PlansList, PlanSummary>(this, "plan_deleted", async (sender, args) => 
             {
                 await _table.ReloadServerData();

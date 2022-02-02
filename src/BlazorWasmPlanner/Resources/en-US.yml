@@ -6,6 +6,7 @@ About: About
 WelcomeTo: Welcome To
 Email: Email
 Required: Required
+Optional: Optional
 Password: Password
 ConfirmPassword: Confirm Password
 Login: Login
@@ -21,6 +22,8 @@ Save: Save
 FileSizeLimitError: The file must be equal or less than 2MB
 InvalidImageFile: Please choose a valid image file
 Cover: Cover
+Close: Close
 Actions: Actions
 NewItemDescription: New Item Description
 NewItemPlaceholder: Going to the gym
+NewPlanTitle: Create a new plan

@@ -1,4 +1,6 @@
-﻿using BlazorWasmPlanner.Client.Services.Exceptions;
+﻿using AKSoftware.Localization.MultiLanguages;
+using AKSoftware.Localization.MultiLanguages.Blazor;
+using BlazorWasmPlanner.Client.Services.Exceptions;
 using BlazorWasmPlanner.Client.Services.Interfaces;
 using BlazorWasmPlanner.Shared;
 using BlazorWasmPlanner.Shared.Models;
@@ -30,6 +32,9 @@ namespace BlazorWasmPlanner.Components
         [Inject]
         public NavigationManager Navigation { get; set; }
 
+        [Inject]
+        public ILanguageContainerService Language { get; set; }
+
         private PlanDetail _model = new PlanDetail();
         private bool _isBusy = false;
         private Stream _stream = null;
@@ -38,6 +43,7 @@ namespace BlazorWasmPlanner.Components
 
         protected override async Task OnInitializedAsync()
         {
+            Language.InitLocalizedComponent(this);
             if (_isEditMode)
                 await FetchPlanByIdAsync();
         }
